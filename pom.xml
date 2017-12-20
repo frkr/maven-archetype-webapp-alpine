@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>sample</groupId>
+  <artifactId>maven-archetype-webapp-alpine</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>maven-archetype-webapp-alpine Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+
+  <dependencies>
+  </dependencies>
+
+  <build>
+    <finalName>maven-archetype-webapp-alpine</finalName>
+    <plugins>
+      <plugin>
+        <!-- TODO Trocar plugin de docker maven oficial -->
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.4.10</version>
+        <configuration>
+          <imageName>${project.artifactId}</imageName>
+          <!-- TODO Trocar para alpine -->
+          <baseImage>jboss/wildfly</baseImage>
+          <exposes>8080</exposes>
+          <resources>
+            <resource>
+              <targetPath>/opt/jboss/wildfly/standalone/deployments/</targetPath>
+              <directory>${project.build.directory}</directory>
+              <include>${project.build.finalName}.war</include>
+            </resource>
+          </resources>
+        </configuration>
+        <executions>
+          <execution>
+            <id>build-image</id>
+            <phase>package</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
