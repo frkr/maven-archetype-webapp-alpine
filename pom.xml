@@ -20,8 +20,8 @@
         <version>0.4.10</version>
         <configuration>
           <imageName>${project.artifactId}</imageName>
-          <!-- TODO Trocar para alpine -->
-          <baseImage>jboss/wildfly</baseImage>
+          <!--baseImage>jboss/wildfly</baseImage-->
+          <baseImage>frkr/wildfly-alpine</baseImage>
           <exposes>8080</exposes>
           <resources>
             <resource>
